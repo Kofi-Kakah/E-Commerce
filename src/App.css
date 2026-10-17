@@ -1,0 +1,19 @@
+
+@import "tailwindcss";
+
+@theme {
+  --color-flash: #39FF14;
+  --color-flash-hover: #32E512;
+  --color-brand: #111827;
+  --color-brand-hover: #1F2937;
+
+  --color-background: #F3F4F6;
+  --color-surface: #FFFFFF;
+  --color-muted: #6B7280;
+  --color-border: #E5E7EB;
+
+  --color-green-soft: #DCFCE7;
+  --color-success: #16A34A;
+  --color-link: #15803D;
+  --color-sale: #DC2626;
+}
