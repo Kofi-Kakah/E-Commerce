@@ -8,14 +8,39 @@ import {
   getRelated,
 } from '../services/productService'
 
-const ProductContext = createContext()
+const ProductContext = createContext(null)
 
 export function ProductProvider({ children }) {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
-  const loadProducts = useCallback(async () => {
+  useEffect(() => {
+    let ignore = false
+
+    async function loadInitialProducts() {
+      try {
+        const data = await fetchProductsFromApi()
+        if (!ignore) {
+          setProducts(data)
+          setLoading(false)
+        }
+      } catch (err) {
+        if (!ignore) {
+          setError(err.message || 'Failed to load products')
+          setLoading(false)
+        }
+      }
+    }
+
+    loadInitialProducts()
+
+    return () => {
+      ignore = true
+    }
+  }, [])
+
+  const refresh = useCallback(async () => {
     setLoading(true)
     setError(null)
     try {
@@ -27,10 +52,6 @@ export function ProductProvider({ children }) {
       setLoading(false)
     }
   }, [])
-
-  useEffect(() => {
-    loadProducts()
-  }, [loadProducts])
 
   // Synchronous lookup from memory
   const getProduct = useCallback(
@@ -66,19 +87,20 @@ export function ProductProvider({ children }) {
       loading,
       error,
       categories: STORE_CATEGORIES,
-      refresh: loadProducts,
+      refresh,
       getProduct,
       fetchProduct,
       getRelatedProducts,
       featured,
       flashDeals,
     }),
-    [products, loading, error, loadProducts, getProduct, fetchProduct, getRelatedProducts, featured, flashDeals]
+    [products, loading, error, refresh, getProduct, fetchProduct, getRelatedProducts, featured, flashDeals]
   )
 
   return <ProductContext.Provider value={value}>{children}</ProductContext.Provider>
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useProducts() {
   const context = useContext(ProductContext)
   if (!context) {
@@ -86,4 +108,3 @@ export function useProducts() {
   }
   return context
 }
-

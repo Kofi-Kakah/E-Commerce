@@ -1,4 +1,4 @@
-export default function Login() {
+export function Login() {
   return (
     <div className="max-w-md mx-auto px-4 py-12">
       <h1 className="text-2xl font-bold text-brand mb-6">Login</h1>
@@ -10,7 +10,8 @@ export default function Login() {
     </div>
   )
 }
-export default function Register() {
+
+export function Register() {
   return (
     <div className="max-w-md mx-auto px-4 py-12">
       <h1 className="text-2xl font-bold text-brand mb-6">Register</h1>
@@ -22,4 +23,8 @@ export default function Register() {
       </form>
     </div>
   )
+}
+
+export default function Auth() {
+  return <Login />
 }
