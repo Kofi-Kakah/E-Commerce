@@ -13,7 +13,7 @@ export default function ProductCard({ product }) {
   const onLeave = () => gsap.to(ref.current, { scale: 1, duration: 0.2 })
   const liked = has(product.id)
   return (
-    <div ref={ref} onMouseEnter={onEnter} onMouseLeave={onLeave} className="bg-surface rounded-xl shadow p-4 flex flex-col">
+    <div ref={ref} onMouseEnter={onEnter} onMouseLeave={onLeave} className="bg-surface rounded-xl shadow-md hover:shadow-xl p-4 flex flex-col transition">
       <div className="relative">
         <Link to={`/product/${product.id}`}><img src={product.img} alt={product.name} className="w-full h-48 object-cover rounded-lg"/></Link>
         {product.oldPrice && <span className="absolute top-2 left-2 bg-sale text-white text-xs px-2 py-1 rounded">SALE</span>}
