@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ThemeProvider } from './context/ThemeContext'
+import { ProductProvider } from './context/ProductContext'
 import { CartProvider } from './context/CartContext'
 import { WishlistProvider } from './context/WishlistContext'
 import { RecentlyViewedProvider } from './context/RecentlyViewedContext'
@@ -19,10 +20,11 @@ import Wishlist from './pages/Wishlist'
 export default function App() {
   return (
     <ThemeProvider>
-      <CartProvider>
-        <WishlistProvider>
-          <RecentlyViewedProvider>
-            <BrowserRouter>
+      <ProductProvider>
+        <CartProvider>
+          <WishlistProvider>
+            <RecentlyViewedProvider>
+              <BrowserRouter>
               <div className="min-h-screen bg-background dark:bg-gray-900 text-brand dark:text-white flex flex-col">
                 <Navbar/>
                 <main className="flex-1">
@@ -45,6 +47,7 @@ export default function App() {
           </RecentlyViewedProvider>
         </WishlistProvider>
       </CartProvider>
-    </ThemeProvider>
+    </ProductProvider>
+  </ThemeProvider>
   )
 }
